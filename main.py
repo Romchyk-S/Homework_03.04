@@ -47,13 +47,13 @@ def plot_func_on_1_1_mosaic(to_be_plotted: list, colors: list, markers: list,
     
     for axis, func, color, marker, linestyle in zip(axs.values(), to_be_plotted, colors, markers, linestyles):
         
-        x, y, label, title, x_asymptote, y_asymptote, obl_asymptote = func[1]()
+        x, y, label, title, maximal, minimal = func[1]()
         
         data = dcc.DataContainer(x, y)
         
         data.plot(fig=fig, ax=axis, color=color, marker=marker, linestyle=linestyle, linewidth=linewidth, 
                   markersize=marker_size, label=label, title=title, 
-                  x_asymptote = x_asymptote, y_asymptote = y_asymptote, obl_asymptote = obl_asymptote)
+                  maximal = maximal, minimal = minimal)
     
         linewidth += 0.1
         
@@ -69,7 +69,6 @@ markers = ['o', '^', '.', ',', 'v', '>', '<', '1', '2', '3']
 
 linestyles = ['solid', 'dotted', 'dashed', 'dashdot']
 
-
 linewidth, marker_size = 1.0, 0
 
 to_be_plotted = insp.getmembers(ftp, insp.isfunction)
@@ -80,19 +79,18 @@ markers = fill_arr(markers, to_be_plotted)
 
 linestyles = fill_arr(linestyles, to_be_plotted)
 
-i = 0
+print()
 
-
-for func, color, marker, linestyle in zip(to_be_plotted, colors, markers, linestyles):
+for i, func, color, marker, linestyle in zip(dict(enumerate(to_be_plotted)).keys(), to_be_plotted, colors, markers, linestyles):
     
-    x, y, label, title = func[1]()
+    x, y, label, title, maximal, minimal = func[1]()
     
     data = dcc.DataContainer(x, y)
     
     fig, axis = plt.subplots(1, 1, layout="constrained", figsize=(10,6))
     
     data.plot(fig=fig, ax=axis, color=color, marker=marker, linestyle=linestyle, linewidth=linewidth, 
-              markersize=marker_size, label=label, title=title)
+              markersize=marker_size, label=label, title=title, maximal = maximal, minimal = minimal, plot_num = i)
 
     plt.show()
     

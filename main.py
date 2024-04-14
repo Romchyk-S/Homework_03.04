@@ -79,9 +79,9 @@ markers = fill_arr(markers, to_be_plotted)
 
 linestyles = fill_arr(linestyles, to_be_plotted)
 
-print()
+to_be_plotted = dict(enumerate(to_be_plotted))
 
-for i, func, color, marker, linestyle in zip(dict(enumerate(to_be_plotted)).keys(), to_be_plotted, colors, markers, linestyles):
+for i, func, color, marker, linestyle in zip(to_be_plotted.keys(), to_be_plotted.values(), colors, markers, linestyles):
     
     x, y, label, title, maximal, minimal = func[1]()
     
